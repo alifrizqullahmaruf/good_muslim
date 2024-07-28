@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:good_muslim/pages/auth/login_screen.dart';
-import 'package:good_muslim/pages/home_screen.dart';
+import 'package:good_muslim/pages/task_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
