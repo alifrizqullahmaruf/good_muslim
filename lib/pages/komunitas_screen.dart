@@ -1,4 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:good_muslim/modals/data.dart';
+import 'package:good_muslim/widgets/comunity_card.dart';
 
 class KomunitasScreen extends StatefulWidget {
   const KomunitasScreen({super.key});
@@ -7,7 +12,8 @@ class KomunitasScreen extends StatefulWidget {
   State<KomunitasScreen> createState() => _KomunitasScreenState();
 }
 
-class _KomunitasScreenState extends State<KomunitasScreen> with SingleTickerProviderStateMixin {
+class _KomunitasScreenState extends State<KomunitasScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -58,79 +64,83 @@ class _KomunitasScreenState extends State<KomunitasScreen> with SingleTickerProv
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         // Profil Ustadz
-                        ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: AssetImage('assets/ustadz_profile.jpg'),
-                            radius: 30,
-                          ),
-                          title: Text('Ustadz Ahmad'),
-                          subtitle: Text('Ahli Agama'),
-                          trailing: ElevatedButton(
-                            onPressed: () {
-                              // Handle follow button
-                            },
-                            child: Text('Ikuti'),
-                            style: ElevatedButton.styleFrom(
-                            ),
-                          ),
-                        ),
+                        Container(
+                            margin: EdgeInsets.only(bottom: 16),
+                            padding: EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage('assets/ustadz_profile.jpg'),
+                                  radius: 30,
+                                ),
+                                Text(
+                                  'Ustadz Ahmad',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 8),
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Ikuti',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ).animate().scale(
+                                    duration: 300.ms, curve: Curves.easeIn),
+                              ],
+                            )),
                         SizedBox(height: 20),
                         // Pertanyaan dan Jawaban
                         Expanded(
-                          child: ListView(
-                            children: [
-                              ListTile(
-                                title: Text('Bagaimana cara meningkatkan keimanan?'),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Jawaban: Dengan memperbanyak ibadah dan doa.'),
-                                    Row(
-                                      children: [
-                                        Text('Ustadz Ahmad', style: TextStyle(fontWeight: FontWeight.bold)),
-                                        Spacer(),
-                                        Text('2 hari yang lalu', style: TextStyle(color: Colors.grey)),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(Icons.thumb_up_alt_outlined),
-                                      onPressed: () {
-                                        // Handle like button
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: Icon(Icons.comment_outlined),
-                                      onPressed: () {
-                                        // Handle comment button
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              // More ListTiles for other questions and answers...
-                            ],
+                          child: ListView.builder(
+                            itemCount: communityCards.length,
+                            itemBuilder: (context, index) {
+                              final cardData = communityCards[index];
+                              return ComunityCard(
+                                title: cardData['title'],
+                                description: cardData['description'],
+                                avatarUrl: cardData['avatarUrl'],
+                                name: cardData['name'],
+                                date: cardData['date'],
+                              );
+                            },
                           ),
                         ),
                       ],
                     ),
                     // Artikel Tab
-                    ListView(
-                      children: [
-                        ListTile(
-                          title: Text('Pentingnya Sholat dalam Kehidupan Sehari-hari'),
-                          subtitle: Text('Oleh: Ustadz Ahmad'),
-                        ),
-                        ListTile(
-                          title: Text('Cara Meningkatkan Keimanan'),
-                          subtitle: Text('Oleh: Ustadz Ahmad'),
-                        ),
-                        // More ListTiles for other articles...
-                      ],
+                    Container(
+                      margin: EdgeInsets.only(bottom: 16),
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ListTile(
+                            title: Text(
+                                'Pentingnya Sholat dalam Kehidupan Sehari-hari'),
+                            subtitle: Text('Oleh: Ustadz Ahmad'),
+                          ),
+                          ListTile(
+                            title: Text('Cara Meningkatkan Keimanan'),
+                            subtitle: Text('Oleh: Ustadz Ahmad'),
+                          ),
+                          // More ListTiles for other articles...
+                        ],
+                      ),
                     ),
                   ],
                 ),

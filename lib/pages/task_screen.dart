@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:good_muslim/widgets/task_card.dart';
 import 'package:good_muslim/widgets/task_infaq.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -11,6 +12,24 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
+  bool _showAllTasks =
+      false; // Variable to track whether to show all tasks or not
+
+  // Sample task data
+  final List<Map<String, String>> _tasks = [
+    {"title": "Sholat Subuh", "time": '05:00 AM'},
+    {"title": "Sholat Dzuhur", "time": '12:00 PM'},
+    {"title": "Sholat Ashar", "time": '3:00 PM'},
+    {"title": "Sholat Maghrib", "time": '6:00 PM'},
+    {"title": "Sholat Isya", "time": '7:30 PM'},
+  ];
+
+  List<Map<String, String>> _infaqItems = [
+    {"money": 'Rp 50,000', "desc": 'Sumbangan bencana'},
+    {"money": 'Rp 20,000', "desc": 'Bantuan yatim'},
+    // Add more items if needed
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,11 +75,16 @@ class _TaskScreenState extends State<TaskScreen> {
                       ],
                     ),
                     Container(
-                      padding: EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white,
+                              blurRadius: 5,
+                              spreadRadius: 2,
+                            )
+                          ]),
                       child: IconButton(
                         icon: Icon(Icons.calendar_today, color: Colors.green),
                         onPressed: () {
@@ -83,21 +107,18 @@ class _TaskScreenState extends State<TaskScreen> {
                   ),
                 ),
                 SizedBox(height: 10),
-                ListView(
-                  shrinkWrap: true,
-                  children: [
-                   TaskCard(title: "Sholat Subuh", time: '05:00 AM'),
-                   TaskCard(title: "Sholat Dzuhur", time: '12:00 PM'),
-                   TaskCard(title: "Sholat Ashar", time: '3:00 PM'),
-                   TaskCard(title: "Sholat Maghrib", time: '6:00 PM'),
-                   TaskCard(title: "Sholat Isya", time: '7:30 PM'),
-                  ],
+                Column(
+                  children: _buildTaskCards(),
                 ),
                 TextButton(
                   onPressed: () {
-                    // Handle "Lihat Lebih Banyak"
+                    setState(() {
+                      _showAllTasks = !_showAllTasks; // Toggle the state
+                    });
                   },
-                  child: Text('Lihat Lebih Banyak'),
+                  child: Text(_showAllTasks
+                      ? 'Lihat Lebih Sedikit'
+                      : 'Lihat Lebih Banyak'),
                 ),
                 SizedBox(height: 30),
                 // Infak Sedekah Harian
@@ -109,10 +130,12 @@ class _TaskScreenState extends State<TaskScreen> {
                   ),
                 ),
                 SizedBox(height: 10),
-                TaskInfaq(money: 'Rp 50,000', desc: 'Sumbangan bencana'),
+                Column(
+                  children: _buildInfaqItems(),
+                ),
                 TextButton(
                   onPressed: () {
-                    // Handle "Tambah Catatan"
+                    _showAddInfaqDialog();
                   },
                   child: Text('Tambah Catatan'),
                 ),
@@ -121,6 +144,88 @@ class _TaskScreenState extends State<TaskScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  List<Widget> _buildTaskCards() {
+    // Get the tasks to display based on the state
+    final tasksToDisplay = _showAllTasks ? _tasks : _tasks.take(3).toList();
+    return tasksToDisplay.map((task) {
+      return TaskCard(title: task["title"]!, time: task["time"]!)
+          .animate()
+          .fadeIn(duration: 300.ms);
+    }).toList();
+  }
+
+  List<Widget> _buildInfaqItems() {
+    return _infaqItems.map((infaq) {
+      return TaskInfaq(
+        money: infaq["money"]!,
+        desc: infaq["desc"]!,
+        onDismissed: () {
+          setState(() {
+            _infaqItems.remove(infaq); // Remove the item from the list
+          });
+        },
+      ).animate().fadeIn(duration: 300.ms);
+    }).toList();
+  }
+
+  // Function to show dialog for adding new infak item
+  void _showAddInfaqDialog() {
+    // Create separate controllers for amount and description
+    final TextEditingController amountController = TextEditingController();
+    final TextEditingController descriptionController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Tambah Infak Sedekah'),
+          content: Column(
+            mainAxisSize: MainAxisSize
+                .min, // Ensure the column size is only as large as its content
+            children: <Widget>[
+              TextField(
+                controller: amountController,
+                decoration: InputDecoration(hintText: 'Masukkan jumlah'),
+                keyboardType: TextInputType.number, // For numerical input
+              ),
+              SizedBox(height: 10), // Add spacing between fields
+              TextField(
+                controller: descriptionController,
+                decoration:
+                    InputDecoration(hintText: 'Masukkan deskripsi singkat'),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Batal'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            TextButton(
+              child: Text('Tambah'),
+              onPressed: () {
+                setState(() {
+                  // Add new item to _infaqItems with amount and description
+                  _infaqItems.add({
+                    "money": amountController.text.isNotEmpty
+                        ? 'Rp ${amountController.text}'
+                        : 'Rp 0',
+                    "desc": descriptionController.text.isNotEmpty
+                        ? descriptionController.text
+                        : 'Tanpa Deskripsi',
+                  });
+                });
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -253,40 +358,17 @@ class _TaskScreenState extends State<TaskScreen> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.help),
-            title: Text('Pertanyaan saya'),
-            onTap: () {
-              // Handle Pertanyaan saya
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.bookmark),
-            title: Text('Disimpan'),
-            onTap: () {
-              // Handle Disimpan
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.notifications),
-            title: Text('Notifikasi'),
-            onTap: () {
-              // Handle Notifikasi
-            },
-          ),
-          ListTile(
             leading: Icon(Icons.settings),
-            title: Text('Pengaturan'),
+            title: Text('Settings'),
             onTap: () {
-              // Handle Pengaturan
+              // Handle Settings
             },
           ),
-          Spacer(),
-          // Logout Button
           ListTile(
-            leading: Icon(Icons.logout, color: Colors.red),
-            title: Text('Logout', style: TextStyle(color: Colors.red)),
+            leading: Icon(Icons.help),
+            title: Text('Help'),
             onTap: () {
-              // Handle Logout
+              // Handle Help
             },
           ),
         ],

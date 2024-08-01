@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class TaskCard extends StatefulWidget {
   final String title;
   final String time;
   bool isCompleted;
 
-  TaskCard(
-      {Key? key,
-      required this.title,
-      required this.time,
-      this.isCompleted = false})
-      : super(key: key);
+  TaskCard({
+    Key? key,
+    required this.title,
+    required this.time,
+    this.isCompleted = false,
+  }) : super(key: key);
 
   @override
   _TaskCardState createState() => _TaskCardState();
@@ -31,7 +32,9 @@ class _TaskCardState extends State<TaskCard> {
               height: 40,
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
-                  color: Colors.green, borderRadius: BorderRadius.circular(8)),
+                color: Colors.green,
+                borderRadius: BorderRadius.circular(8),
+              ),
               child: Image.asset('lib/assets/pray_icon.png'),
             ),
             SizedBox(
@@ -44,10 +47,11 @@ class _TaskCardState extends State<TaskCard> {
                       Text(
                         widget.title,
                         style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black26,
-                            fontWeight: FontWeight.w700),
-                      ),
+                          fontSize: 18,
+                          color: Colors.black26,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ).animate().fadeIn(duration: 300.ms),
                     ],
                   )
                 : Column(
@@ -56,14 +60,15 @@ class _TaskCardState extends State<TaskCard> {
                       Text(
                         widget.title,
                         style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700),
-                      ),
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ).animate().fadeIn(duration: 300.ms),
                       Text(
                         widget.time,
                         style: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
+                      ).animate().fadeIn(duration: 300.ms),
                     ],
                   ),
             Spacer(),
@@ -73,11 +78,12 @@ class _TaskCardState extends State<TaskCard> {
                     child: Icon(
                       Icons.check,
                       color: Colors.white,
-                    ))
+                    ),
+                  ).animate().scale(duration: 300.ms, curve: Curves.easeIn)
                 : ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        widget.isCompleted = true; // Now allowed to modify
+                        widget.isCompleted = true;
                       });
                     },
                     style: ElevatedButton.styleFrom(
@@ -90,11 +96,12 @@ class _TaskCardState extends State<TaskCard> {
                     child: Text(
                       'Selesai',
                       style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w700),
+                        fontSize: 18,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
+                  ).animate().scale(duration: 300.ms, curve: Curves.easeIn),
           ],
         ),
       ),
