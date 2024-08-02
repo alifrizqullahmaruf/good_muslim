@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:good_muslim/modals/data.dart';
 import 'package:good_muslim/widgets/comunity_card.dart';
+import 'package:good_muslim/widgets/profile_card.dart';
 
 class KomunitasScreen extends StatefulWidget {
   const KomunitasScreen({super.key});
@@ -63,47 +64,21 @@ class _KomunitasScreenState extends State<KomunitasScreen>
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // Profil Ustadz
-                        Container(
-                            margin: EdgeInsets.only(bottom: 16),
-                            padding: EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('assets/ustadz_profile.jpg'),
-                                  radius: 30,
-                                ),
-                                Text(
-                                  'Ustadz Ahmad',
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 8),
-                                    backgroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'Ikuti',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black54,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ).animate().scale(
-                                    duration: 300.ms, curve: Curves.easeIn),
-                              ],
-                            )),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(profiles.length, (index) {
+                              final profilesData = profiles[index];
+                              return ProfileCard(
+                                avatarImage: profilesData["avatarImage"],
+                                name: profilesData["name"],
+                                onFollowPressed:
+                                    profilesData["onFollowPressed"],
+                              );
+                            }),
+                          ),
+                        ),
                         SizedBox(height: 20),
-                        // Pertanyaan dan Jawaban
                         Expanded(
                           child: ListView.builder(
                             itemCount: communityCards.length,

@@ -29,45 +29,58 @@ class _ComunityCardState extends State<ComunityCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ComunityCardHeader(
-              title: widget.title,
-              description: widget.description,
-            ),
-            SizedBox(height: 4),
-            Divider().animate().fadeIn(duration: 500.ms),
-            SizedBox(height: 4),
-            ComunityCardFooter(
-              avatarUrl: widget.avatarUrl,
-              name: widget.name,
-              date: widget.date,
-              isBookmarked: _isBookmarked,
-              onBookmarkToggle: () {
-                setState(() {
-                  _isBookmarked = !_isBookmarked;
-                });
-              },
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Container(
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
             ),
           ],
-        ).animate().fadeIn(duration: 500.ms),
+        ),
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ComunityCardHeader(
+                title: widget.title,
+                description: widget.description,
+              ),
+              SizedBox(height: 4),
+              Divider().animate().fadeIn(duration: 500.ms),
+              SizedBox(height: 4),
+              ComunityCardFooter(
+                avatarUrl: widget.avatarUrl,
+                name: widget.name,
+                date: widget.date,
+                isBookmarked: _isBookmarked,
+                onBookmarkToggle: () {
+                  setState(() {
+                    _isBookmarked = !_isBookmarked;
+                    // Tampilkan Snackbar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        duration: 300.ms,
+                        content: Text(_isBookmarked
+                            ? 'Berhasil tersimpan'
+                            : 'Dihapus dari penyimpanan'),
+                      ),
+                    );
+                  });
+                },
+              ),
+            ],
+          ).animate().fadeIn(duration: 500.ms),
+        ),
       ),
     );
   }

@@ -43,7 +43,7 @@ class ComunityCardFooter extends StatelessWidget {
         IconButton(
           icon: Icon(
             isBookmarked ? Icons.bookmark : Icons.bookmark_border,
-            color: isBookmarked ? Colors.orange : Colors.grey,
+            color: isBookmarked ? Colors.green : Colors.grey,
           ).animate().scale(duration: 300.ms),
           onPressed: onBookmarkToggle,
         ),
