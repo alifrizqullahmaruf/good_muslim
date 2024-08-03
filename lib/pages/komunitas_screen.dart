@@ -97,24 +97,19 @@ class _KomunitasScreenState extends State<KomunitasScreen>
                       ],
                     ),
                     // Artikel Tab
-                    Container(
-                      margin: EdgeInsets.only(bottom: 16),
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ListTile(
-                            title: Text(
-                                'Pentingnya Sholat dalam Kehidupan Sehari-hari'),
-                            subtitle: Text('Oleh: Ustadz Ahmad'),
-                          ),
-                          ListTile(
-                            title: Text('Cara Meningkatkan Keimanan'),
-                            subtitle: Text('Oleh: Ustadz Ahmad'),
-                          ),
-                          // More ListTiles for other articles...
-                        ],
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: communityCards.length,
+                        itemBuilder: (context, index) {
+                          final cardData = communityCards[index];
+                          return ComunityCard(
+                            title: cardData['title'],
+                            description: cardData['description'],
+                            avatarUrl: cardData['avatarUrl'],
+                            name: cardData['name'],
+                            date: cardData['date'],
+                          );
+                        },
                       ),
                     ),
                   ],

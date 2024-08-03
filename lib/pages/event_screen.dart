@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:good_muslim/modals/data.dart';
+import 'package:good_muslim/widgets/event_card.dart';
 
 class EventScreen extends StatefulWidget {
   const EventScreen({super.key});
@@ -29,97 +31,46 @@ class _EventScreenState extends State<EventScreen> {
               ),
               SizedBox(height: 20),
               // Event Location Header
-              Text(
-                'Event disekitar kamu',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    color: Colors.green,
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  Text(
+                    'Event disekitar kamu',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 20),
               // Event List
               Expanded(
-                child: ListView(
-                  children: [
-                    // Event Item
-                    Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: ListTile(
-                        contentPadding: EdgeInsets.all(16),
-                        title: Text(
-                          'Kajian Akbar',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Minggu, 11 Februari, 09:00 WIB'),
-                            Text('Masjid Al-Falah, Jakarta'),
-                            SizedBox(height: 8),
-                            Text('Kajian bersama Ustadz Ahmad dengan tema "Meningkatkan Keimanan".'),
-                          ],
-                        ),
-                        trailing: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.calendar_today),
-                              onPressed: () {
-                                // Handle calendar icon tap
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.bookmark_border),
-                              onPressed: () {
-                                // Handle bookmark icon tap
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    // More Event Items...
-                    Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: ListTile(
-                        contentPadding: EdgeInsets.all(16),
-                        title: Text(
-                          'Pengajian Subuh',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Sabtu, 10 Februari, 05:00 WIB'),
-                            Text('Masjid Al-Hikmah, Bandung'),
-                            SizedBox(height: 8),
-                            Text('Pengajian bersama Ustadz Budi dengan tema "Menggapai Hidayah".'),
-                          ],
-                        ),
-                        trailing: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.calendar_today),
-                              onPressed: () {
-                                // Handle calendar icon tap
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.bookmark_border),
-                              onPressed: () {
-                                // Handle bookmark icon tap
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                child: ListView.builder(
+                  itemCount: eventsCard.length,
+                  itemBuilder: (context, index) {
+                    final cardData = eventsCard[index];
+                    return EventCard(
+                      imagePath: cardData['imagePath'],
+                      title: cardData['title'],
+                      date: cardData['date'],
+                      time: cardData['time'],
+                      onBookmarkPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text("Bookmarked ${cardData['title']}")),
+                        );
+                        cardData['onBookmarkPressed']();
+                      },
+                    );
+                  },
                 ),
               ),
             ],
@@ -129,4 +80,3 @@ class _EventScreenState extends State<EventScreen> {
     );
   }
 }
-

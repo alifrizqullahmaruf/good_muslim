@@ -61,6 +61,7 @@ flutter:
     - lib/assets/ustad.png
     - lib/assets/ustad2.png
     - lib/assets/ustad3.png
+    - lib/assets/event1.png
     #   - images/a_dot_ham.jpeg
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware

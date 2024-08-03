@@ -134,3 +134,117 @@ List<Map<String, dynamic>> profiles = [
   },
   // Add other profiles here
 ];
+
+List<Map<String, dynamic>> eventsCard = [
+  {
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Music Concert',
+    'date': '1 Januari 2023',
+    'time': '18:00 - 21:00',
+    'onBookmarkPressed': () {
+      // Do something additional when bookmark is pressed
+      SnackBar(
+          duration: Duration(milliseconds: 200),
+          content: Text("Bookmarked Music Concert"));
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Art Exhibition',
+    'date': '5 Januari 2023',
+    'time': '10:00 - 17:00',
+    'onBookmarkPressed': () {
+      SnackBar(
+          duration: Duration(milliseconds: 200),
+          content: Text("Bookmarked Art Exhibition"));
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Tech Conference',
+    'date': '12 Januari 2023',
+    'time': '09:00 - 16:00',
+    'onBookmarkPressed': () {
+      SnackBar(
+          duration: Duration(milliseconds: 200),
+          content: Text("Bookmarked Tech Conference"));
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Food Festival',
+    'date': '20 Januari 2023',
+    'time': '12:00 - 22:00',
+    'onBookmarkPressed': () {
+      SnackBar(
+          duration: Duration(milliseconds: 200),
+          content: Text("Bookmarked Food Festival"));
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Book Fair',
+    'date': '25 Januari 2023',
+    'time': '10:00 - 18:00',
+    'onBookmarkPressed': () {
+      SnackBar(
+          duration: Duration(milliseconds: 200),
+          content: Text("Bookmarked Book Fair"));
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.jpg',
+    'title': 'Movie Premiere',
+    'date': '30 Januari 2023',
+    'time': '19:00 - 22:00',
+    'onBookmarkPressed': () {
+      SnackBar(
+          duration: Duration(milliseconds: 200),
+          content: Text("Bookmarked Movie Premiere"));
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.jpg',
+    'title': 'Marathon',
+    'date': '5 Februari 2023',
+    'time': '06:00 - 12:00',
+    'onBookmarkPressed': () {
+      SnackBar(
+          duration: Duration(milliseconds: 200),
+          content: Text("Bookmarked Marathon"));
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.jpg',
+    'title': 'Charity Gala',
+    'date': '10 Februari 2023',
+    'time': '19:00 - 23:00',
+    'onBookmarkPressed': () {
+      SnackBar(
+          duration: Duration(milliseconds: 200),
+          content: Text("Bookmarked Charity Gala"));
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.jpg',
+    'title': 'Science Fair',
+    'date': '15 Februari 2023',
+    'time': '09:00 - 15:00',
+    'onBookmarkPressed': () {
+      SnackBar(
+          duration: Duration(milliseconds: 200),
+          content: Text("Bookmarked Science Fair"));
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.jpg',
+    'title': 'Dance Competition',
+    'date': '20 Februari 2023',
+    'time': '14:00 - 18:00',
+    'onBookmarkPressed': () {
+      SnackBar(
+          duration: Duration(milliseconds: 200),
+          content: Text("Bookmarked Dance Competition"));
+    },
+  },
+];
