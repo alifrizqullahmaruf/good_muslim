@@ -135,116 +135,184 @@ List<Map<String, dynamic>> profiles = [
   // Add other profiles here
 ];
 
-List<Map<String, dynamic>> eventsCard = [
+List<Map<String, dynamic>> eventDetail = [
   {
     'imagePath': 'lib/assets/event1.png',
-    'title': 'Music Concert',
+    'title': 'Kajian Fiqih',
     'date': '1 Januari 2023',
     'time': '18:00 - 21:00',
+    'speakerImage': 'lib/assets/ustad2.png',
+    'speakerName': 'Ustadz Ahmad',
+    'speakerDesc': 'Ahli Fiqih dan Syariah',
+    'description':
+        'Kajian fiqih membahas tentang hukum-hukum Islam yang berkaitan dengan kehidupan sehari-hari.',
+    'location': 'Masjid Al-Falah, Jakarta',
     'onBookmarkPressed': () {
-      // Do something additional when bookmark is pressed
       SnackBar(
-          duration: Duration(milliseconds: 200),
-          content: Text("Bookmarked Music Concert"));
+        duration: Duration(milliseconds: 200),
+        content: Text("Bookmarked Kajian Fiqih"),
+      );
     },
   },
   {
     'imagePath': 'lib/assets/event1.png',
-    'title': 'Art Exhibition',
-    'date': '5 Januari 2023',
-    'time': '10:00 - 17:00',
-    'onBookmarkPressed': () {
-      SnackBar(
-          duration: Duration(milliseconds: 200),
-          content: Text("Bookmarked Art Exhibition"));
-    },
-  },
-  {
-    'imagePath': 'lib/assets/event1.png',
-    'title': 'Tech Conference',
-    'date': '12 Januari 2023',
-    'time': '09:00 - 16:00',
-    'onBookmarkPressed': () {
-      SnackBar(
-          duration: Duration(milliseconds: 200),
-          content: Text("Bookmarked Tech Conference"));
-    },
-  },
-  {
-    'imagePath': 'lib/assets/event1.png',
-    'title': 'Food Festival',
-    'date': '20 Januari 2023',
-    'time': '12:00 - 22:00',
-    'onBookmarkPressed': () {
-      SnackBar(
-          duration: Duration(milliseconds: 200),
-          content: Text("Bookmarked Food Festival"));
-    },
-  },
-  {
-    'imagePath': 'lib/assets/event1.png',
-    'title': 'Book Fair',
-    'date': '25 Januari 2023',
-    'time': '10:00 - 18:00',
-    'onBookmarkPressed': () {
-      SnackBar(
-          duration: Duration(milliseconds: 200),
-          content: Text("Bookmarked Book Fair"));
-    },
-  },
-  {
-    'imagePath': 'lib/assets/event1.jpg',
-    'title': 'Movie Premiere',
-    'date': '30 Januari 2023',
-    'time': '19:00 - 22:00',
-    'onBookmarkPressed': () {
-      SnackBar(
-          duration: Duration(milliseconds: 200),
-          content: Text("Bookmarked Movie Premiere"));
-    },
-  },
-  {
-    'imagePath': 'lib/assets/event1.jpg',
-    'title': 'Marathon',
-    'date': '5 Februari 2023',
-    'time': '06:00 - 12:00',
-    'onBookmarkPressed': () {
-      SnackBar(
-          duration: Duration(milliseconds: 200),
-          content: Text("Bookmarked Marathon"));
-    },
-  },
-  {
-    'imagePath': 'lib/assets/event1.jpg',
-    'title': 'Charity Gala',
-    'date': '10 Februari 2023',
-    'time': '19:00 - 23:00',
-    'onBookmarkPressed': () {
-      SnackBar(
-          duration: Duration(milliseconds: 200),
-          content: Text("Bookmarked Charity Gala"));
-    },
-  },
-  {
-    'imagePath': 'lib/assets/event1.jpg',
-    'title': 'Science Fair',
+    'title': 'Ceramah Agama',
     'date': '15 Februari 2023',
-    'time': '09:00 - 15:00',
+    'time': '19:00 - 21:00',
+    'speakerImage': 'lib/assets/ustad3.png',
+    'speakerName': 'Ustadzah Aisyah',
+    'speakerDesc': 'Penceramah dan Motivator',
+    'description':
+        'Ceramah agama yang memberikan pencerahan tentang keimanan dan ketakwaan.',
+    'location': 'Masjid Al-Hidayah, Bandung',
     'onBookmarkPressed': () {
       SnackBar(
-          duration: Duration(milliseconds: 200),
-          content: Text("Bookmarked Science Fair"));
+        duration: Duration(milliseconds: 200),
+        content: Text("Bookmarked Ceramah Agama"),
+      );
     },
   },
   {
-    'imagePath': 'lib/assets/event1.jpg',
-    'title': 'Dance Competition',
-    'date': '20 Februari 2023',
-    'time': '14:00 - 18:00',
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Seminar Pendidikan Islam',
+    'date': '22 Maret 2023',
+    'time': '09:00 - 12:00',
+    'speakerImage': 'lib/assets/ustad2.png',
+    'speakerName': 'Prof. Dr. Yusuf',
+    'speakerDesc': 'Pakar Pendidikan Islam',
+    'description':
+        'Seminar tentang metode pendidikan Islam yang efektif untuk generasi muda.',
+    'location': 'Universitas Islam Negeri, Yogyakarta',
     'onBookmarkPressed': () {
       SnackBar(
-          duration: Duration(milliseconds: 200),
-          content: Text("Bookmarked Dance Competition"));
+        duration: Duration(milliseconds: 200),
+        content: Text("Bookmarked Seminar Pendidikan Islam"),
+      );
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Workshop Dakwah',
+    'date': '10 April 2023',
+    'time': '08:00 - 16:00',
+    'speakerImage': 'lib/assets/ustad3.png',
+    'speakerName': 'Ustadz Hidayat',
+    'speakerDesc': 'Pendakwah dan Trainer',
+    'description':
+        'Workshop tentang teknik-teknik dakwah yang efektif dan inspiratif.',
+    'location': 'Pusat Dakwah Islam, Surabaya',
+    'onBookmarkPressed': () {
+      SnackBar(
+        duration: Duration(milliseconds: 200),
+        content: Text("Bookmarked Workshop Dakwah"),
+      );
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Kajian Al-Quran',
+    'date': '18 Mei 2023',
+    'time': '17:00 - 19:00',
+    'speakerImage': 'lib/assets/ustad2.png',
+    'speakerName': 'Ustadz Farid',
+    'speakerDesc': 'Hafidz dan Ahli Tafsir',
+    'description':
+        'Kajian tentang tafsir Al-Quran dan makna-maknanya dalam kehidupan.',
+    'location': 'Masjid Agung, Semarang',
+    'onBookmarkPressed': () {
+      SnackBar(
+        duration: Duration(milliseconds: 200),
+        content: Text("Bookmarked Kajian Al-Quran"),
+      );
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Kuliah Umum Syariah',
+    'date': '25 Juni 2023',
+    'time': '14:00 - 16:00',
+    'speakerImage': 'lib/assets/ustad2.png',
+    'speakerName': 'Dr. Zainab',
+    'speakerDesc': 'Dosen Syariah',
+    'description':
+        'Kuliah umum tentang prinsip-prinsip syariah dalam ekonomi Islam.',
+    'location': 'Institut Agama Islam, Malang',
+    'onBookmarkPressed': () {
+      SnackBar(
+        duration: Duration(milliseconds: 200),
+        content: Text("Bookmarked Kuliah Umum Syariah"),
+      );
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Diskusi Panel Akhlak',
+    'date': '5 Juli 2023',
+    'time': '10:00 - 12:00',
+    'speakerImage': 'lib/assets/ustad2.png',
+    'speakerName': 'Ustadz Munir',
+    'speakerDesc': 'Pakar Akhlak Islam',
+    'description':
+        'Diskusi panel tentang pentingnya akhlak mulia dalam kehidupan sehari-hari.',
+    'location': 'Gedung Dakwah, Solo',
+    'onBookmarkPressed': () {
+      SnackBar(
+        duration: Duration(milliseconds: 200),
+        content: Text("Bookmarked Diskusi Panel Akhlak"),
+      );
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Seminar Keluarga Sakinah',
+    'date': '20 Agustus 2023',
+    'time': '13:00 - 15:00',
+    'speakerImage': 'lib/assets/ustad2.png',
+    'speakerName': 'Ustadzah Maryam',
+    'speakerDesc': 'Pakar Keluarga dan Parenting',
+    'description':
+        'Seminar tentang membangun keluarga sakinah, mawaddah, dan rahmah.',
+    'location': 'Balai Kota, Depok',
+    'onBookmarkPressed': () {
+      SnackBar(
+        duration: Duration(milliseconds: 200),
+        content: Text("Bookmarked Seminar Keluarga Sakinah"),
+      );
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Pelatihan Tahsin',
+    'date': '30 September 2023',
+    'time': '09:00 - 11:00',
+    'speakerImage': 'lib/assets/ustad2.png',
+    'speakerName': 'Ustadz Ridwan',
+    'speakerDesc': 'Pengajar Tahsin',
+    'description':
+        'Pelatihan tahsin Al-Quran untuk meningkatkan kualitas bacaan.',
+    'location': 'Pondok Pesantren, Tangerang',
+    'onBookmarkPressed': () {
+      SnackBar(
+        duration: Duration(milliseconds: 200),
+        content: Text("Bookmarked Pelatihan Tahsin"),
+      );
+    },
+  },
+  {
+    'imagePath': 'lib/assets/event1.png',
+    'title': 'Kajian Hadits',
+    'date': '10 Oktober 2023',
+    'time': '16:00 - 18:00',
+    'speakerImage': 'lib/assets/ustad2.png',
+    'speakerName': 'Ustadz Hasan',
+    'speakerDesc': 'Ahli Hadits',
+    'description': 'Kajian hadits dan pemahaman tentang sunnah Rasulullah.',
+    'location': 'Masjid Raya, Makassar',
+    'onBookmarkPressed': () {
+      SnackBar(
+        duration: Duration(milliseconds: 200),
+        content: Text("Bookmarked Kajian Hadits"),
+      );
     },
   },
 ];

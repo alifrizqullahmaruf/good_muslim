@@ -15,7 +15,7 @@ class _EventScreenState extends State<EventScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -23,24 +23,24 @@ class _EventScreenState extends State<EventScreen> {
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Cari disini',
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Event Location Header
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.location_on,
                     color: Colors.green,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 4,
                   ),
-                  Text(
+                  const Text(
                     'Event disekitar kamu',
                     style: TextStyle(
                       fontSize: 18,
@@ -50,24 +50,33 @@ class _EventScreenState extends State<EventScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Event List
               Expanded(
                 child: ListView.builder(
-                  itemCount: eventsCard.length,
+                  itemCount: eventDetail.length,
                   itemBuilder: (context, index) {
-                    final cardData = eventsCard[index];
+                    final cardData = eventDetail[index];
                     return EventCard(
                       imagePath: cardData['imagePath'],
+                      speakerImage: cardData['speakerImage'],
+                      speakerDesc: cardData['speakerDesc'],
+                      speakerName: cardData['speakerName'],
+                      description: cardData['description'],
+                      location: cardData['location'],
                       title: cardData['title'],
                       date: cardData['date'],
                       time: cardData['time'],
                       onBookmarkPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                              content: Text("Bookmarked ${cardData['title']}")),
+                            content: Text("Bookmarked ${cardData['title']}"),
+                          ),
                         );
-                        cardData['onBookmarkPressed']();
+                        // Pastikan untuk menghapus atau menangani jika cardData['onBookmarkPressed'] tidak ada
+                        if (cardData.containsKey('onBookmarkPressed')) {
+                          cardData['onBookmarkPressed']();
+                        }
                       },
                     );
                   },
