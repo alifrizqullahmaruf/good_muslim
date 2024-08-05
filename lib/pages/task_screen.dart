@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:good_muslim/widgets/task_card.dart';
@@ -12,16 +14,17 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
+  double percentSholat = 0;
   bool _showAllTasks =
       false; // Variable to track whether to show all tasks or not
 
   // Sample task data
-  final List<Map<String, String>> _tasks = [
-    {"title": "Sholat Subuh", "time": '05:00 AM'},
-    {"title": "Sholat Dzuhur", "time": '12:00 PM'},
-    {"title": "Sholat Ashar", "time": '3:00 PM'},
-    {"title": "Sholat Maghrib", "time": '6:00 PM'},
-    {"title": "Sholat Isya", "time": '7:30 PM'},
+  final List<Map<String, dynamic>> _tasks = [
+    {"title": "Sholat Subuh", "time": '05:00 AM', "isCompleted": false},
+    {"title": "Sholat Dzuhur", "time": '12:00 PM', "isCompleted": false},
+    {"title": "Sholat Ashar", "time": '3:00 PM', "isCompleted": false},
+    {"title": "Sholat Maghrib", "time": '6:00 PM', "isCompleted": false},
+    {"title": "Sholat Isya", "time": '7:30 PM', "isCompleted": false},
   ];
 
   List<Map<String, String>> _infaqItems = [
@@ -30,9 +33,17 @@ class _TaskScreenState extends State<TaskScreen> {
     // Add more items if needed
   ];
 
+  void _handleTaskCompletion(int index) {
+    setState(() {
+      _tasks[index]['isCompleted'] = true;
+      percentSholat += 20;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 245, 250, 247),
       drawer: _buildDrawer(),
       body: SafeArea(
         child: Padding(
@@ -76,7 +87,7 @@ class _TaskScreenState extends State<TaskScreen> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
@@ -116,9 +127,24 @@ class _TaskScreenState extends State<TaskScreen> {
                       _showAllTasks = !_showAllTasks; // Toggle the state
                     });
                   },
-                  child: Text(_showAllTasks
-                      ? 'Lihat Lebih Sedikit'
-                      : 'Lihat Lebih Banyak'),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(_showAllTasks
+                            ? Icons.arrow_upward
+                            : Icons.arrow_downward),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          _showAllTasks
+                              ? 'Lihat Lebih Sedikit'
+                              : 'Lihat Lebih Banyak',
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 SizedBox(height: 30),
                 // Infak Sedekah Harian
@@ -133,12 +159,29 @@ class _TaskScreenState extends State<TaskScreen> {
                 Column(
                   children: _buildInfaqItems(),
                 ),
-                TextButton(
-                  onPressed: () {
-                    _showAddInfaqDialog();
-                  },
-                  child: Text('Tambah Catatan'),
+                SizedBox(
+                  height: 8,
                 ),
+                Container(
+                  width: double.infinity,
+                  height: 50,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.green),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      )),
+                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                    ),
+                    onPressed: () {
+                      _showAddInfaqDialog();
+                    },
+                    child: Text(
+                      'Tambah Catatan',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -148,12 +191,17 @@ class _TaskScreenState extends State<TaskScreen> {
   }
 
   List<Widget> _buildTaskCards() {
-    // Get the tasks to display based on the state
     final tasksToDisplay = _showAllTasks ? _tasks : _tasks.take(3).toList();
-    return tasksToDisplay.map((task) {
-      return TaskCard(title: task["title"]!, time: task["time"]!)
-          .animate()
-          .fadeIn(duration: 300.ms);
+    return tasksToDisplay.asMap().entries.map((entry) {
+      int index = entry.key;
+      var task = entry.value;
+      return TaskCard(
+        title: task["title"],
+        time: task["time"],
+        isCompleted: task["isCompleted"],
+        onComplete: () =>
+            _handleTaskCompletion(index), // Pass index to identify the task
+      ).animate().fadeIn(duration: 300.ms);
     }).toList();
   }
 
@@ -188,7 +236,10 @@ class _TaskScreenState extends State<TaskScreen> {
             children: <Widget>[
               TextField(
                 controller: amountController,
-                decoration: InputDecoration(hintText: 'Masukkan jumlah'),
+                decoration: InputDecoration(
+                  hintText: 'Masukkan jumlah',
+                  prefixText: 'Rp. ',
+                ),
                 keyboardType: TextInputType.number, // For numerical input
               ),
               SizedBox(height: 10), // Add spacing between fields
@@ -287,12 +338,12 @@ class _TaskScreenState extends State<TaskScreen> {
               CircularPercentIndicator(
                 radius: 50.0,
                 lineWidth: 10.0,
-                percent: 0.7, // 70% progress
+                percent: percentSholat / 100, // 70% progress
                 backgroundColor: Colors.grey[300]!,
                 progressColor: Colors.white,
                 circularStrokeCap: CircularStrokeCap.round,
                 center: Text(
-                  '70%',
+                  '${percentSholat} %',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

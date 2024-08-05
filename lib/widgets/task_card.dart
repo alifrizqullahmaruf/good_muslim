@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-class TaskCard extends StatefulWidget {
+class TaskCard extends StatelessWidget {
   final String title;
   final String time;
-  bool isCompleted;
+  final bool isCompleted;
+  final VoidCallback onComplete; // Callback to notify parent
 
   TaskCard({
     Key? key,
     required this.title,
     required this.time,
-    this.isCompleted = false,
+    required this.isCompleted,
+    required this.onComplete,
   }) : super(key: key);
 
   @override
-  _TaskCardState createState() => _TaskCardState();
-}
-
-class _TaskCardState extends State<TaskCard> {
-  @override
   Widget build(BuildContext context) {
     return Card(
-      color: widget.isCompleted ? Colors.white : Colors.green.shade300,
+      color: isCompleted ? Colors.white : Colors.green.shade300,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
@@ -40,12 +37,12 @@ class _TaskCardState extends State<TaskCard> {
             SizedBox(
               width: 12,
             ),
-            widget.isCompleted
+            isCompleted
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.title,
+                        title,
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.black26,
@@ -58,7 +55,7 @@ class _TaskCardState extends State<TaskCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.title,
+                        title,
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.white,
@@ -66,13 +63,13 @@ class _TaskCardState extends State<TaskCard> {
                         ),
                       ).animate().fadeIn(duration: 300.ms),
                       Text(
-                        widget.time,
+                        time,
                         style: TextStyle(fontSize: 16, color: Colors.white),
                       ).animate().fadeIn(duration: 300.ms),
                     ],
                   ),
             Spacer(),
-            widget.isCompleted
+            isCompleted
                 ? CircleAvatar(
                     backgroundColor: Colors.green,
                     child: Icon(
@@ -82,9 +79,7 @@ class _TaskCardState extends State<TaskCard> {
                   ).animate().scale(duration: 300.ms, curve: Curves.easeIn)
                 : ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        widget.isCompleted = true;
-                      });
+                      onComplete(); // Notify parent
                     },
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -108,3 +103,4 @@ class _TaskCardState extends State<TaskCard> {
     );
   }
 }
+

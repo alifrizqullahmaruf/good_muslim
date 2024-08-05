@@ -16,10 +16,10 @@ class MyApp extends StatelessWidget {
       title: 'GOOD MUSLIM',
       theme: ThemeData(
         // This is the theme of your application.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 245, 250, 247)),
         useMaterial3: true,
       ),
-      home: SplashScreen(),
+      home: BotNav(),
     );
   }
 }
