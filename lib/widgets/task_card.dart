@@ -79,7 +79,7 @@ class TaskCard extends StatelessWidget {
                   ).animate().scale(duration: 300.ms, curve: Curves.easeIn)
                 : ElevatedButton(
                     onPressed: () {
-                      onComplete(); // Notify parent
+                      onComplete(); 
                     },
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
